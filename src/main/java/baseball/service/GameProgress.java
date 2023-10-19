@@ -1,6 +1,5 @@
 package baseball.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -23,11 +22,7 @@ public class GameProgress {
             }
         }
 
-        Map<String, Integer> result = new HashMap<>();
-        result.put(STRIKE, strikes);
-        result.put(BALL, balls);
-
-        return result;
+        return Map.of(STRIKE, strikes, BALL, balls);
     }
 
     public boolean isEndGame(Map<String, Integer> result) {
