@@ -8,6 +8,7 @@ public class OutputView {
     private final String BALL = "볼";
     private final String NOTHING = "낫싱";
     private final String SPACE = " ";
+    private final String THREE_STRIKE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
 
     public void printStartGame() {
 
@@ -24,6 +25,11 @@ public class OutputView {
         String result = convertResult(strike, ball);
 
         System.out.println(result);
+    }
+
+    public void printDecideGame() {
+
+        System.out.println(THREE_STRIKE);
     }
 
     private String convertResult(int strike, int ball) {
