@@ -9,6 +9,7 @@ public class OutputView {
     private final String NOTHING = "낫싱";
     private final String SPACE = " ";
     private final String THREE_STRIKE = "3개의 숫자를 모두 맞히셨습니다! 게임 종료";
+    private final String RESTART_GAME = "게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요.";
 
     public void printStartGame() {
 
@@ -30,6 +31,11 @@ public class OutputView {
     public void printDecideGame() {
 
         System.out.println(THREE_STRIKE);
+    }
+
+    public void printRestartGame() {
+
+        System.out.println(RESTART_GAME);
     }
 
     private String convertResult(int strike, int ball) {
