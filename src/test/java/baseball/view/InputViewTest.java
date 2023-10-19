@@ -48,4 +48,38 @@ class InputViewTest {
                 () -> assertThat(result).containsExactly(1, 2, 3)
         );
     }
+
+    @Test
+    @DisplayName("사용자는 게임을 재시작하기 위해 1을 입력해서 올바르게 반환받을 수 있다.")
+    void decideGGameRestartTest() {
+        // given
+        String input = "1";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        // when
+        int result = inputView.decideGameActionInput();
+
+        // then
+        assertAll(
+                () -> assertThat(result).isEqualTo(1),
+                () -> assertThat(result).isNotEqualTo(2)
+        );
+    }
+
+    @Test
+    @DisplayName("사용자는 게임을 재시작하기 위해 1을 입력해서 올바르게 반환받을 수 있다.")
+    void decideGGameEntTest() {
+        // given
+        String input = "2";
+        System.setIn(new ByteArrayInputStream(input.getBytes()));
+
+        // when
+        int result = inputView.decideGameActionInput();
+
+        // then
+        assertAll(
+                () -> assertThat(result).isEqualTo(2),
+                () -> assertThat(result).isNotEqualTo(1)
+        );
+    }
 }
