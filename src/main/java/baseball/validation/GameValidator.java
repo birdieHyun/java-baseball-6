@@ -11,5 +11,11 @@ public class GameValidator {
         }
     }
 
+    public void validateIsThreeNumbers(String input) {
+
+        if (input.length() != 3) {
+            throw new IllegalArgumentException("[ERROR] 3자리 숫자만 입력 가능합니다.");
+        }
+    }
 
 }
