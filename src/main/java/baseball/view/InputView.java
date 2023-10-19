@@ -15,6 +15,15 @@ public class InputView {
         return changeUserInputToInt(split);
     }
 
+    public int decideGameActionInput() {
+
+        String userInput = Console.readLine();
+        // TODO: 숫자인지 검증
+        int decideGameAction = Integer.parseInt(userInput);
+        // TODO: 1 or 2 인지 검증
+        return decideGameAction;
+    }
+
     private int[] changeUserInputToInt(String[] userInput) {
 
         // TODO: 3 자리 숫자만 입력했는지 검증 (userInput.length == 3 인지 검증)
