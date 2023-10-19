@@ -18,4 +18,10 @@ public class GameValidator {
         }
     }
 
+    public void validateIsOneOrTwo(int input) {
+
+        if (input != 1 && input != 2) {
+            throw new IllegalArgumentException("[ERROR] 1 또는 2만 입력 가능합니다.");
+        }
+    }
 }
