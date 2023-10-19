@@ -30,6 +30,16 @@ public class GameProgress {
         return result;
     }
 
+    public boolean isEndGame(Map<String, Integer> result) {
+
+        return result.get(STRIKE) == 3;
+    }
+
+    public boolean decideGameRestart(int userNumber) {
+
+        return userNumber == 1;
+    }
+
     private boolean isStrike(List<Integer> computerNumbers, List<Integer> userNumbers, int index) {
 
         return computerNumbers.get(index).equals(userNumbers.get(index));
