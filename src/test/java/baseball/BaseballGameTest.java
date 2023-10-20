@@ -23,6 +23,17 @@ public class BaseballGameTest extends NsTest {
         );
     }
 
+    @Test
+    @DisplayName("게임 진행 중 숫자를 입력하지 않으면 에러 메시지를 출력한다.")
+    void gameThrowTest() {
+
+        assertThatThrownBy(() -> {
+            run("246", "13a");
+        })
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("[ERROR] 숫자만 입력 가능합니다.");
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
