@@ -9,6 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
 class BaseballGameTest extends NsTest {
+
     @Test
     @DisplayName("게임 종료 후 재시작 테스트를 2 번 할 수 있다.")
     void gameRestartTest() {
@@ -23,13 +24,33 @@ class BaseballGameTest extends NsTest {
     }
 
     @Test
-    @DisplayName("게임 진행 중 숫자를 입력하지 않으면 에러 메시지를 출력한다.")
+    @DisplayName("게임 진행 중 문자를 입력할 경우 예외가 발생한다.")
     void gameThrowTest() {
 
         assertThatThrownBy(() -> run("246", "13a"))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("[ERROR] 숫자만 입력 가능합니다.");
     }
+
+    @Test
+    @DisplayName("게임 진행 중 공백을 입력할 경우 예외가 발생한다.")
+    void gameBlankInputThrowTest() {
+
+        assertThatThrownBy(() -> run("246", "13 "))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("[ERROR] 숫자만 입력 가능합니다.");
+    }
+
+    @Test
+    @DisplayName("게임 진행 중 특수문자를 입력할 경우 예외가 발생한다.")
+    void gameSpecialLettersInputThrowTest() {
+
+        assertThatThrownBy(() -> run("246", "13!"))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("[ERROR] 숫자만 입력 가능합니다.");
+    }
+
+
 
     @Test
     @DisplayName("게임 재시작 할 때 문자를 입력한 경우 예외가 발생한다.")
