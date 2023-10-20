@@ -32,11 +32,31 @@ class BaseballGameTest extends NsTest {
     }
 
     @Test
-    @DisplayName("게임 재시작 할 때 숫자를 입력하지 않을 경우 예외가 발생한다.")
+    @DisplayName("게임 재시작 할 때 문자를 입력한 경우 예외가 발생한다.")
     void gameRestartInputStringThrowTest() {
 
         assertRandomNumberInRangeTest(() -> assertThatThrownBy(
-                () -> {run("123", "a");})
+                () -> run("123", "a"))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("[ERROR] 숫자만 입력 가능합니다."), 1, 2, 3);
+    }
+
+    @Test
+    @DisplayName("게임 재시작 할 때 공백을 입력할 경우 예외가 발생한다.")
+    void gameRestartInputBlankThrowTest() {
+
+        assertRandomNumberInRangeTest(() -> assertThatThrownBy(
+                () -> run("123", " "))
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("[ERROR] 숫자만 입력 가능합니다."), 1, 2, 3);
+    }
+
+    @Test
+    @DisplayName("게임 재시작 할 때 특수문자를 입력할 경우 예외가 발생한다.")
+    void gameRestartInputSpecialLettersThrowTest() {
+
+        assertRandomNumberInRangeTest(() -> assertThatThrownBy(
+                () -> run("123", "!"))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("[ERROR] 숫자만 입력 가능합니다."), 1, 2, 3);
     }
