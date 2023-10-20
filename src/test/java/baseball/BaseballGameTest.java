@@ -1,6 +1,5 @@
 package baseball;
 
-import baseball.controller.GameController;
 import camp.nextstep.edu.missionutils.test.NsTest;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,7 +8,7 @@ import static camp.nextstep.edu.missionutils.test.Assertions.assertRandomNumberI
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThatThrownBy;
 
-public class BaseballGameTest extends NsTest {
+class BaseballGameTest extends NsTest {
     @Test
     @DisplayName("게임 종료 후 재시작 테스트를 2 번 할 수 있다.")
     void gameRestartTest() {
@@ -27,9 +26,7 @@ public class BaseballGameTest extends NsTest {
     @DisplayName("게임 진행 중 숫자를 입력하지 않으면 에러 메시지를 출력한다.")
     void gameThrowTest() {
 
-        assertThatThrownBy(() -> {
-            run("246", "13a");
-        })
+        assertThatThrownBy(() -> run("246", "13a"))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessageContaining("[ERROR] 숫자만 입력 가능합니다.");
     }
@@ -38,13 +35,10 @@ public class BaseballGameTest extends NsTest {
     @DisplayName("게임 재시작 할 때 숫자를 입력하지 않을 경우 예외가 발생한다.")
     void gameRestartInputStringThrowTest() {
 
-        assertRandomNumberInRangeTest(() -> {
-            assertThatThrownBy(() -> {
-                run("123", "a"); // "12a"는 잘못된 입력으로 가정
-            })
-                    .isInstanceOf(RuntimeException.class)
-                    .hasMessageContaining("[ERROR] 숫자만 입력 가능합니다.");
-        }, 1, 2, 3);
+        assertRandomNumberInRangeTest(() -> assertThatThrownBy(
+                () -> {run("123", "a");})
+                .isInstanceOf(RuntimeException.class)
+                .hasMessageContaining("[ERROR] 숫자만 입력 가능합니다."), 1, 2, 3);
     }
 
     @Override
