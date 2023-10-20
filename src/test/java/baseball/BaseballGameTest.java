@@ -34,6 +34,19 @@ public class BaseballGameTest extends NsTest {
                 .hasMessageContaining("[ERROR] 숫자만 입력 가능합니다.");
     }
 
+    @Test
+    @DisplayName("게임 재시작 할 때 숫자를 입력하지 않을 경우 예외가 발생한다.")
+    void gameRestartInputStringThrowTest() {
+
+        assertRandomNumberInRangeTest(() -> {
+            assertThatThrownBy(() -> {
+                run("123", "a"); // "12a"는 잘못된 입력으로 가정
+            })
+                    .isInstanceOf(RuntimeException.class)
+                    .hasMessageContaining("[ERROR] 숫자만 입력 가능합니다.");
+        }, 1, 2, 3);
+    }
+
     @Override
     public void runMain() {
         Application.main(new String[]{});
