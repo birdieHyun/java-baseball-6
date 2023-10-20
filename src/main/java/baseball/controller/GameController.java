@@ -1,12 +1,12 @@
 package baseball.controller;
 
+import baseball.model.CompareResult;
 import baseball.service.GameProgress;
 import baseball.service.RandomNumberGenerator;
 import baseball.view.InputView;
 import baseball.view.OutputView;
 
 import java.util.List;
-import java.util.Map;
 
 public class GameController {
 
@@ -14,9 +14,7 @@ public class GameController {
     private final OutputView outputView;
     private final GameProgress gameProgress;
     private final RandomNumberGenerator randomNumberGenerator;
-
-    private static final String STRIKE = "strike";
-    private static final String BALL = "ball";
+    private static final int INITIALIZE_NUMBER = 0;
 
     public GameController(InputView inputView, OutputView outputView,
                           GameProgress gameProgress,
@@ -39,8 +37,8 @@ public class GameController {
 
     private void playSingleRound() {
 
-        List<Integer> computerNumbers = generateComputerNumbers();
-        Map<String, Integer> compareNumbers = initCompareNumbers();
+        List<Integer> computerNumbers = randomNumberGenerator.generateRandomNumber();
+        CompareResult compareNumbers = initCompareNumbers();
 
         while (!gameProgress.isEndGame(compareNumbers)) {
             compareNumbers = playAndCompare(computerNumbers);
@@ -49,24 +47,19 @@ public class GameController {
         outputView.printDecideGame();
     }
 
-    private List<Integer> generateComputerNumbers() {
 
-        List<Integer> computerNumbers = randomNumberGenerator.generateRandomNumber();
-        return computerNumbers;
+    private CompareResult initCompareNumbers() {
+
+        return new CompareResult(INITIALIZE_NUMBER, INITIALIZE_NUMBER);
     }
 
-    private Map<String, Integer> initCompareNumbers() {
-
-        return Map.of(STRIKE, 0, BALL, 0);
-    }
-
-    private Map<String, Integer> playAndCompare(List<Integer> computerNumbers) {
+    private CompareResult playAndCompare(List<Integer> computerNumbers) {
 
         outputView.printInputNumber();
         List<Integer> userInputNumber = inputView.userInputNumber();
-        Map<String, Integer> compareNumbers = gameProgress.compareNumbers(computerNumbers, userInputNumber);
-        outputView.printGameProgress(compareNumbers.get(STRIKE), compareNumbers.get(BALL));
-        return compareNumbers;
+        CompareResult compareResult = gameProgress.compareNumbers(computerNumbers, userInputNumber);
+        outputView.printGameProgress(compareResult.strikes(), compareResult.balls());
+        return compareResult;
     }
 
     private boolean isContinueGame() {
